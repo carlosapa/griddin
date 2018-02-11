@@ -195,25 +195,25 @@ Griddin.populateBlock = function(element) {
     populate_content = function() {
         switch (block_type) {
             case 'uppercase':
-                return this.getUppercaseContent();
+                return Griddin.getUppercaseContent();
                 break;
             case 'lowercase':
-                return this.getLowercaseContent();
+                return Griddin.getLowercaseContent();
                 break;
             case 'blank':
-                return this.getBlankContent();
+                return Griddin.getBlankContent();
                 break;
             case 'solid_random':
-                return this.getSolidRandomContent();
+                return Griddin.getSolidRandomContent();
                 break;
             case 'solid_black':
-                return this.getSolidBlackContent();
+                return Griddin.getSolidBlackContent();
                 break;
             case 'image':
-                return this.getImageContent();
+                return Griddin.getImageContent();
                 break;
             case 'video':
-                return this.getVideoContent();
+                return Griddin.getVideoContent();
                 break;
         }
     }
