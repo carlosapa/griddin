@@ -21,6 +21,8 @@ var rg = new RulersGuides(evt, dragdrop, {
 
 //  Griddin' Library Properties and Methods
 var Griddin = {
+    version: '0.1',
+    debug: true,
     music_element: $('.music_element'),
     colors: {
         even: ['blue', 'red'],
@@ -127,11 +129,16 @@ var Griddin = {
     ]
 };
 
+// Griddin Methods
 
+//Griddin Testing Unit, only showing if Griddin.debug == true;
 Griddin.test = function(string_in) {
-    console.log(string_in);
+    if (this.debug) {
+        console.log(string_in);
+    }
 };
 
+//Get each block when is created by external Library and expands and populates it
 Griddin.expandBlock = function(infoBlock, position, id) {
     var b = $(infoBlock);
     var b_content = $(document.createElement('div'));
@@ -163,7 +170,10 @@ Griddin.expandBlock = function(infoBlock, position, id) {
 };
 
 
-
+//Determinates content type by random function
+//Create HTML Stuff for each block based on content type
+//Split functions to create content
+//Returns HTML for each block
 Griddin.populateBlock = function(element) {
     var random_index = Math.floor(Math.random() * this.block_types.length);
     var block_type = this.block_types[random_index];
@@ -212,6 +222,7 @@ Griddin.populateBlock = function(element) {
 };
 
 
+// Create content based on Upper case type
 Griddin.getUppercaseContent = function() {
     var random_index = Math.floor(Math.random() * this.text_content_upper.length);
     var text = this.text_content_upper[random_index];
@@ -219,6 +230,7 @@ Griddin.getUppercaseContent = function() {
     return text;
 };
 
+// Create content based on Lower case type
 Griddin.getLowercaseContent = function() {
     var random_index = Math.floor(Math.random() * this.text_content_lower.length);
     var text = this.text_content_lower[random_index];
@@ -226,22 +238,27 @@ Griddin.getLowercaseContent = function() {
     return text;
 };
 
+// Create content based on Blank type
 Griddin.getBlankContent = function() {
     return '';
 };
 
+// Create content based on Solid Random type
 Griddin.getSolidRandomContent = function() {
     return 'Aquí viene un color cualquiera';
 };
 
+// Create content based on Solid Block type
 Griddin.getSolidBlackContent = function() {
     return 'Aquí viene un bloque negro';
 };
 
+// Create content based on Image type
 Griddin.getImageContent = function() {
     return 'Aquí viene una imagen';
 };
 
+// Create content based on Video type
 Griddin.getVideoContent = function() {
     return 'Aquí viene un video';
 };

@@ -398,7 +398,7 @@ var RulersGuides = function(evt, dragdrop) {
         showDetailedInfo = function() {
 
             // Gabi's stuff    
-            // Griddin.test('in');
+            Griddin.test('in');
             var grid_id = 0;
             // /Gabi's stuff
 
