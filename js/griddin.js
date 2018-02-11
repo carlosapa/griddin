@@ -532,28 +532,11 @@ var RulersGuides = function(evt, dragdrop, options) {
         showDetailedInfo = function() {
 
             /////////////////////////////////////////////////
-
-var utils = {
-    music_element: $('.music_element'), 
-    colors: {
-        even: [], 
-        odd: []
-    }, 
-    randDruk: {
-
-    }
-};
-
-
             $('.guide.h').css('border-bottom', 'solid 1px white');
             $('.guide.v').css('border-right', 'solid 1px white');
-
             //$('.slider_info').css('color', 'white');
-
             $('.button').css('visibility', 'visible');
             //$('#animate').css('visibility', 'hidden');
-
-
 
             /*
             INIT music functions
@@ -570,7 +553,7 @@ var utils = {
                 }
 
                 var clicks = $(this).data('clicks');
-                
+
                 if (clicks) {
                     pauseMusic();
                     $('#play').html('PLAY');
@@ -590,8 +573,8 @@ var utils = {
 
 
 
-//            var music_element = $('.music_element');
-//            console.log(music_element);
+            //            var music_element = $('.music_element');
+            //            console.log(music_element);
 
             var randElement = new Array(
                 $('#text_1').html(),
@@ -752,7 +735,7 @@ var utils = {
                         userText.className = 'user_text';
                         userText = userText.cloneNode(false);
                         userText.innerHTML = randElement[Math.floor(Math.random() * randElement.length)];
-                        
+
                         var randImage = Math.floor(Math.random() * 10) + 1;
                         var randVideo = Math.floor(Math.random() * 2) + 1;
 
