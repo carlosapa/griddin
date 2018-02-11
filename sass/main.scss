@@ -1,0 +1,134 @@
+@import 'lib/fontface';
+@import 'lib/keyframes';
+
+/*html {
+    font-size: 8px;
+}*/
+
+.box {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    -webkit-box-shadow: 0px 0px 41px 0px rgba(0, 0, 0, 0.62);
+    -moz-box-shadow: 0px 0px 41px 0px rgba(0, 0, 0, 0.62);
+    box-shadow: 0px 0px 41px 0px rgba(0, 0, 0, 0.62);
+}
+
+.user_text {
+    /*font-size: 200em;*/
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    z-index: 20000;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    word-break: normal;
+    /*word-wrap: break-word;*/
+    transition: all 1s;
+    animation-duration: 0.8s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    /*vertical-align: top;*/
+    /*text-align: justify;*/
+    /*text-justify: inter-word;*/
+}
+
+.prueba {
+    font-size: 200em;
+    position: absolute;
+    border: 1px solid black;
+    width: 50%;
+    height: 50%;
+}
+
+
+/*.user_text:hover {
+padding-left: 500px;
+}
+
+.move_right:hover {
+padding-left: 500px;
+}
+
+.move_down:hover {
+padding-top: 500px;
+}*/
+
+.hidden {
+    display: none;
+}
+
+::selection {
+    color: black;
+    background: transparent;
+}
+
+#sliders {
+    position: fixed;
+    width: 9%;
+    top: 5%;
+    right: 2%;
+    z-index: 500000000;
+    opacity: 0;
+    transition: all .5s;
+    transition-delay: .1s;
+}
+
+#sliders:hover {
+    opacity: 1;
+}
+
+.slider {
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+.slider_info {
+    text-align: center;
+    margin-bottom: 0.4em;
+    background-color: transparent;
+}
+
+.button {
+    visibility: hidden;
+    margin-top: 1.7em;
+    margin-left: -0.55em;
+    margin-right: 1em;
+}
+
+#video_jazz {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    overflow: hidden;
+    mix-blend-mode: multiply;
+}
+
+
+/*#layer {
+    display: none;
+    position: absolute;
+    z-index: 500000;
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+    mix-blend-mode: multiply; 
+}
+
+#saxo {
+    display: none;
+    position: absolute;
+    z-index: 50000;
+}*/
