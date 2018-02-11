@@ -1,0 +1,16 @@
+.griddin_content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.guide {
+    border-right-color: white !important;
+    border-bottom-color: white !important;
+    .info {
+        visibility: hidden !important;
+    }
+}

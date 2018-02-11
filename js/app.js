@@ -28,6 +28,7 @@ var Griddin = {
         even: ['blue', 'red'],
         odd: ['green', 'purple']
     },
+    autoBorders: false,
     fonts: {
         randDruk: [
             'Druk XXCondensed',
@@ -149,7 +150,7 @@ Griddin.expandBlock = function(infoBlock, position, id) {
     //Change CSS Info of Block
     b.css({
         backgroundColor: b.hasClass('even') ? '#fff' : '#eee',
-        border: '1px solid #aaa'
+        border: (this.autoBorders) ? '1px solid #aaa' : ''
     });
 
     //B_content Structure and stuff...
@@ -204,7 +205,7 @@ Griddin.populateBlock = function(element) {
                 return Griddin.getBlankContent();
                 break;
             case 'solid_random':
-                return Griddin.getSolidRandomContent();
+                return Griddin.getSolidRandomContent(b.hasClass('even'));
                 break;
             case 'solid_black':
                 return Griddin.getSolidBlackContent();
@@ -227,7 +228,16 @@ Griddin.getUppercaseContent = function() {
     var random_index = Math.floor(Math.random() * this.text_content_upper.length);
     var text = this.text_content_upper[random_index];
 
-    return text;
+    //Create HTML
+    var text_container = $(document.createElement('span'));
+    text_container.html(text);
+
+    //Set font size
+    text_container.css({
+        fontSize: '40px'
+    });
+
+    return text_container;
 };
 
 // Create content based on Lower case type
@@ -244,23 +254,88 @@ Griddin.getBlankContent = function() {
 };
 
 // Create content based on Solid Random type
-Griddin.getSolidRandomContent = function() {
-    return 'Aquí viene un color cualquiera';
+Griddin.getSolidRandomContent = function(even) {
+    var color = (even) ? this.colors.even : this.colors.odd;
+    var color_random = Math.floor(Math.random() * color.length);
+
+    //Create HTML
+    var solid_container = $(document.createElement('span'));
+
+    //Set font size
+    solid_container.css({
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        backgroundColor: color[color_random]
+    });
+
+    return solid_container;
 };
 
 // Create content based on Solid Block type
 Griddin.getSolidBlackContent = function() {
-    return 'Aquí viene un bloque negro';
+    //Create HTML
+    var solid_container = $(document.createElement('span'));
+
+    //Set font size
+    solid_container.css({
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        backgroundColor: '#333'
+    });
+
+    return solid_container;
 };
 
 // Create content based on Image type
 Griddin.getImageContent = function() {
-    return 'Aquí viene una imagen';
+    var image_random = Math.floor((Math.random() * this.images.amount) + 1);
+    var src = (this.images.route + this.images.name).replace('$!', image_random);
+
+    //Create HTML
+    var image_container = $(document.createElement('img'));
+    image_container.attr({
+        src: src
+    });
+
+    //Set font size
+    image_container.css({
+        width: '100%',
+        height: '100%',
+        objectPosition: 'center',
+        objectFit: 'cover',
+    });
+
+    return image_container;
 };
 
 // Create content based on Video type
 Griddin.getVideoContent = function() {
-    return 'Aquí viene un video';
+    var video_random = Math.floor((Math.random() * this.video.amount) + 1);
+    var src = (this.video.route + this.video.name).replace('$!', video_random);
+
+    //Create HTML
+    var video_container = $(document.createElement('video'));
+    video_container.attr({
+        src: src,
+        autoplay: true,
+        muted: true
+    });
+
+    //Set font size
+    video_container.css({
+        width: '100%',
+        height: '100%',
+        objectPosition: 'center',
+        objectFit: 'cover',
+    });
+
+    return video_container;
 };
 
 
@@ -318,4 +393,4 @@ Griddin.getVideoContent = function() {
 //     var fmax = $("#slider_fsize").slider("values", 1);
 //     var wmin = $("#slider_fwidth").slider("values", 0);
 //     var wmax = $("#slider_fwidth").slider("values", 1);
-// }
+// }G
