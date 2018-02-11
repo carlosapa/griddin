@@ -70,17 +70,17 @@ var Griddin = {
 
     images: {
         name: 'image_$!.jpg',
-        route: 'img/',
+        route: 'ressources/images/',
         amount: 10
     },
     video: {
         name: 'video_$!.mp4',
-        route: 'video/',
+        route: 'ressources/video/',
         amount: 2
     },
     audio: {
         name: 'audio_$!.mp3',
-        route: 'audio/',
+        route: 'ressources/audio/',
         amount: 1
     },
 
@@ -240,7 +240,7 @@ Griddin.getLowercaseContent = function() {
 
 // Create content based on Blank type
 Griddin.getBlankContent = function() {
-    return '';
+    return 'Aquí viene un texto vacío...';
 };
 
 // Create content based on Solid Random type
