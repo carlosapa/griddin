@@ -339,58 +339,9 @@ Griddin.getVideoContent = function() {
 };
 
 
-
-
-
-
-
-
-
-
-// Griddin.changeBlocks = function() {
-
-//     // Change CSS of Grid Elements
-//     // 
-//     $('.guide.h').css('border-bottom', 'solid 1px white');
-//     $('.guide.v').css('border-right', 'solid 1px white');
-//     // $('.slider_info').css('color', 'white');
-//     $('.button').css('visibility', 'visible');
-//     // $('#animate').css('visibility', 'hidden');
-
-
-//     // Init Music Functions
-//     // 
-//     $('#play').click(function() {
-//         var music = document.getElementById("music");
-
-//         function playMusic() {
-//             music.play();
-//         }
-
-//         function pauseMusic() {
-//             music.pause();
-//         }
-
-//         var clicks = $(this).data('clicks');
-
-//         if (clicks) {
-//             pauseMusic();
-//             $('#play').html('PLAY');
-//             for (var i = 1; i < 99999; i++) {
-//                 window.clearInterval(i);
-//             }
-//         } else {
-//             playMusic();
-//             music.loop = true;
-//             $('#play').html('STOP');
-//             var change = setInterval(showDetailedInfo, 3000); /*490*/
-//         }
-//         $(this).data("clicks", !clicks);
-//     });
-
-
-//     var fmin = $("#slider_fsize").slider("values", 0);
-//     var fmax = $("#slider_fsize").slider("values", 1);
-//     var wmin = $("#slider_fwidth").slider("values", 0);
-//     var wmax = $("#slider_fwidth").slider("values", 1);
-// }G
+// Skip the "Show Detailed Info" clicking at the beginning...
+Griddin.init = function() {
+    $(document).on('Draggin.menu_created', function(ev) {
+        $('.rg-menu li').eq(8).find('a').trigger('click');
+    });
+}();
