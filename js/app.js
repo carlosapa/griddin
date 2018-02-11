@@ -166,7 +166,7 @@ Griddin.expandBlock = function(infoBlock, position, id) {
     b.append(b_content);
 
     // Populate Block with Random Content Type
-    b_content.html(Griddin.populateBlock(b_content));
+    b_content.html(this.populateBlock(b_content));
 };
 
 
@@ -195,25 +195,25 @@ Griddin.populateBlock = function(element) {
     populate_content = function() {
         switch (block_type) {
             case 'uppercase':
-                return Griddin.getUppercaseContent();
+                return this.getUppercaseContent();
                 break;
             case 'lowercase':
-                return Griddin.getLowercaseContent();
+                return this.getLowercaseContent();
                 break;
             case 'blank':
-                return Griddin.getBlankContent();
+                return this.getBlankContent();
                 break;
             case 'solid_random':
-                return Griddin.getSolidRandomContent();
+                return this.getSolidRandomContent();
                 break;
             case 'solid_black':
-                return Griddin.getSolidBlackContent();
+                return this.getSolidBlackContent();
                 break;
             case 'image':
-                return Griddin.getImageContent();
+                return this.getImageContent();
                 break;
             case 'video':
-                return Griddin.getVideoContent();
+                return this.getVideoContent();
                 break;
         }
     }
