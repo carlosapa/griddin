@@ -396,6 +396,14 @@ var RulersGuides = function(evt, dragdrop) {
             }
         },
         showDetailedInfo = function() {
+
+            // Gabi's stuff    
+            // Griddin.test('in');
+            var grid_id = 0;
+            // /Gabi's stuff
+
+
+            // Init vars
             var i,
                 j = 0,
                 hGuides = [],
@@ -410,6 +418,7 @@ var RulersGuides = function(evt, dragdrop) {
                 text = '',
                 br = document.createElement('br');
 
+            // Save guides to calculate amount of divs to be created later...
             for (i in guides) {
                 if (guides.hasOwnProperty(i)) {
                     if (guides[i].type === 'h') {
@@ -420,30 +429,34 @@ var RulersGuides = function(evt, dragdrop) {
                 }
             }
 
+            // Weird stuff within vGuides and hGuides Arrays
             vGuides.unshift(0);
             vGuides.push(scrollSize[0]);
-
             hGuides.unshift(0);
             hGuides.push(scrollSize[1]);
-
             vGuides = vGuides.sort(function(a, b) {
                 return a - b;
             });
-
             hGuides = hGuides.sort(function(a, b) {
                 return a - b;
             });
 
+
+            // Draw divs
             for (i = 0; i < hGuides.length - 1; i = i + 1) {
                 j = 0;
 
                 for (j; j < vGuides.length - 1; j = j + 1) {
+
+                    // Every block
+                    // Create DOM Structure
                     infoBlock = infoBlock.cloneNode(false);
                     infoBlockTxt = infoBlockTxt.cloneNode(false);
                     infoData1 = infoData1.cloneNode(false);
                     infoData2 = infoData2.cloneNode(false);
                     br = br.cloneNode();
 
+                    // Class names for each block
                     infoBlockWrapper.className = 'info-block-wrapper';
                     infoBlock.className = 'info-block';
                     infoBlockTxt.className = 'info-block-txt';
@@ -455,29 +468,37 @@ var RulersGuides = function(evt, dragdrop) {
                         ' even' :
                         ' odd';
 
+                    // CSS positioning for each block
                     infoBlock.style.top = hGuides[i] + 'px';
                     infoBlock.style.left = vGuides[j] + 'px';
                     infoBlock.style.width = (vGuides[j + 1] - vGuides[j]) + 'px';
                     infoBlock.style.height = (hGuides[i + 1] - hGuides[i]) + 'px';
 
+                    // Create Tooltip Text
                     text = (vGuides[j + 1] - vGuides[j]) + ' x ' + (hGuides[i + 1] - hGuides[i]);
-
                     infoData1.nodeValue = text;
-
                     text = hGuides[i] + ' : ' + vGuides[j];
-
                     infoData2.nodeValue = text;
 
+                    // Append tootip text to InfoBlockTxt
                     infoBlockTxt.appendChild(infoData1);
                     infoBlockTxt.appendChild(br);
                     infoBlockTxt.appendChild(infoData2);
 
+                    // Append InfoBlockTxt to InfoBlock
                     infoBlock.appendChild(infoBlockTxt);
 
+                    // Style on the fly InfoBlockTxt
                     infoBlockTxt.style.marginTop = (i === 0) ? '31px' : '0';
                     infoBlockTxt.style.marginLeft = (j === 0) ? '42px' : '0';
 
+                    // Append infoBlock in infoFrag
                     infoFrag.appendChild(infoBlock);
+
+                    // Gabi's stuff   
+                    Griddin.expandBlock(infoBlock, [i, j], grid_id);
+                    grid_id++;
+                    // /Gabi's stuff
                 }
             }
 
