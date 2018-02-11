@@ -6,7 +6,7 @@
 var evt = new Event();
 var dragdrop = new Dragdrop(evt);
 var rg = new RulersGuides(evt, dragdrop, {
-    container: document.getElementById('container'),
+    container: document.querySelector('.mount_point'),
     saveOpenOptionEnable: true,
     detailsOptionEnable: true,
     optionsMenuEnable: true,
