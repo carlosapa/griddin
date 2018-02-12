@@ -1,8 +1,9 @@
-var RulersGuides = function(evt, dragdrop) {
+// Gabi's Stuff: Add options parameter to Constructor
+var RulersGuides = function(evt, dragdrop, options) {
     'use strict';
 
     var doc = document.documentElement,
-        body = document.body,
+        body = options.container || document.body, // Gabi's Stuff: Set option to mount app in div and not in body
         wrapper = null,
         lockHandler = null,
         locked = 1,
@@ -898,7 +899,9 @@ var RulersGuides = function(evt, dragdrop) {
                 style.appendChild(document.createTextNode(cssText));
             }
 
-            body.appendChild(style);
+            // Gabi's Stuff
+            document.head.appendChild(style);
+            // /Gabi's Stuff
 
             setTimeout(function() {
                 hRuler = new Ruler('h', 3000);
