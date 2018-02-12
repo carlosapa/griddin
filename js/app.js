@@ -22,7 +22,7 @@ var rg = new RulersGuides(evt, dragdrop, {
 //  Griddin' Library Properties and Methods
 var Griddin = {
     version: '0.1',
-    debug: true,
+    debug: false,
     music_element: $('.music_element'),
     colors: {
         even: ['blue', 'red'],
@@ -84,16 +84,19 @@ var Griddin = {
         route: 'ressources/audio/',
         amount: 1
     },
-
-    block_types: [
-        'uppercase',
-        'lowercase',
-        'blank',
-        'solid_random',
-        'solid_black',
-        'image',
-        'video'
-    ],
+    block_types: {
+        content: [
+            'uppercase',
+            'lowercase',
+            'image',
+            'video'
+        ],
+        decoration: [
+            'blank',
+            'solid_random',
+            'solid_black',
+        ]
+    },
     text_content_lower: [
         'It is partly planned and partly spontaneous; that is, as the musicians perform a pre-determined tune, they have the opportunity to create their own interpretations within that tune in response to the other musicians\' performances and whatever else may occur \"in the moment\", this is called improvisation and is the defining element of jazz. in everything from regular conversation, to basketball, to everyday life, americans are constantly improvising.',
         'John coltrane was an american jazz saxophonist and composer. working in the bebop and hard bop idioms early in his career, coltrane helped pioneer the use of modes in jazz and was later at the forefront of free jazz. he led at least fifty recording sessions during his career, and appeared as a sideman on many albums by other musicians, including trumpeter miles davis and pianist thelonious monk',
@@ -173,55 +176,89 @@ Griddin.expandBlock = function(infoBlock, position, id) {
 
 //Determinates content type by random function
 //Create HTML Stuff for each block based on content type
-//Split functions to create content
+//Split functions to create content and deco
 //Returns HTML for each block
 Griddin.populateBlock = function(element) {
-    var random_index = Math.floor(Math.random() * this.block_types.length);
-    var block_type = this.block_types[random_index];
+    // Element
     var b_content = element;
     var b = element.parent();
-    var populate_content = null;
+    var output_total;
+    var output_content;
+    var output_deco;
 
-    //B_content Structure and stuff based on content type
-    b.addClass('griddin_element_' + block_type);
+    // Random index for content_type and decoration_type
+    var random_index_content = Math.floor(Math.random() * this.block_types.content.length);
+    var random_index_deco = Math.floor(Math.random() * this.block_types.decoration.length);
+
+    var block_type_content = this.block_types.content[random_index_content];
+    var block_type_deco = this.block_types.decoration[random_index_deco];
+
+    //B_content Structure and stuff based on content type and deco type
+    b.addClass('griddin_element_' + block_type_content);
+    b.addClass('griddin_element_' + block_type_deco);
     b.attr({
-        'content-type': block_type
+        'content-type': block_type_content,
+        'deco-type': block_type_deco
     });
-    b_content.addClass('griddin_content_' + block_type);
+    b_content.addClass('griddin_content_' + block_type_content);
+    b_content.addClass('griddin_content_' + block_type_deco);
     b_content.attr({
-        'content-type': block_type
+        'content-type': block_type_content,
+        'deco-type': block_type_deco
     });
 
-    //Populate based on Content Type
-    populate_content = function() {
-        switch (block_type) {
-            case 'uppercase':
-                return Griddin.getUppercaseContent();
-                break;
-            case 'lowercase':
-                return Griddin.getLowercaseContent();
-                break;
-            case 'blank':
-                return Griddin.getBlankContent();
-                break;
-            case 'solid_random':
-                return Griddin.getSolidRandomContent(b.hasClass('even'));
-                break;
-            case 'solid_black':
-                return Griddin.getSolidBlackContent();
-                break;
-            case 'image':
-                return Griddin.getImageContent();
-                break;
-            case 'video':
-                return Griddin.getVideoContent();
-                break;
-        }
-    }
+    output_content = this.getTheContent(block_type_content);
+    output_deco = this.getTheDeco(block_type_deco, b.hasClass('even'));
 
-    return populate_content;
+    output_total = output_content[0].outerHTML + output_deco[0].outerHTML;
+    return output_total;
 };
 
+
+// Split function to get Content HTML
+Griddin.getTheContent = function(block_type) {
+    var output_content;
+    output_content = function() {
+        switch (block_type) {
+            case Griddin.block_types.content[0]: //'uppercase'
+                return Griddin.getUppercaseContent();
+                break;
+            case Griddin.block_types.content[1]: //'lowercase'
+                return Griddin.getLowercaseContent();
+                break;
+            case Griddin.block_types.content[2]: //'image'
+                return Griddin.getImageContent();
+                break;
+            case Griddin.block_types.content[3]: //'video'
+                return Griddin.getVideoContent();
+                break;
+            default:
+                return Griddin.getBlankContent();
+        }
+    }
+    return output_content();
+};
+
+// Split function to get Deco HTML
+Griddin.getTheDeco = function(block_deco, is_even) {
+    var output_content;
+    output_content = function() {
+        switch (block_deco) {
+            case Griddin.block_types.decoration[0]: //'blank'
+                return Griddin.getBlankContent();
+                break;
+            case Griddin.block_types.decoration[1]: //'solid_random'
+                return Griddin.getSolidRandomContent(is_even);
+                break;
+            case Griddin.block_types.decoration[2]: //'solid_black'
+                return Griddin.getSolidBlackContent();
+                break;
+            default:
+                return Griddin.getBlankContent();
+        }
+    }
+    return output_content();
+};
 
 // Create content based on Upper case type
 Griddin.getUppercaseContent = function() {
@@ -245,12 +282,33 @@ Griddin.getLowercaseContent = function() {
     var random_index = Math.floor(Math.random() * this.text_content_lower.length);
     var text = this.text_content_lower[random_index];
 
-    return text;
+    //Create HTML
+    var text_container = $(document.createElement('span'));
+    text_container.html(text);
+
+    //Set font size
+    text_container.css({
+        fontSize: '40px'
+    });
+
+    return text_container;
 };
 
 // Create content based on Blank type
 Griddin.getBlankContent = function() {
-    return 'Aquí viene un texto vacío...';
+    //Create HTML
+    var void_container = $(document.createElement('span'));
+
+    //Set CSS
+    void_container.css({
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    });
+
+    return void_container;
 };
 
 // Create content based on Solid Random type
@@ -261,14 +319,16 @@ Griddin.getSolidRandomContent = function(even) {
     //Create HTML
     var solid_container = $(document.createElement('span'));
 
-    //Set font size
+    //Set CSS
     solid_container.css({
         width: '100%',
         height: '100%',
         position: 'absolute',
         top: '0',
         left: '0',
-        backgroundColor: color[color_random]
+        backgroundColor: color[color_random],
+        mixBlendMode: 'multiply',
+        opacity: '1'
     });
 
     return solid_container;
@@ -279,14 +339,16 @@ Griddin.getSolidBlackContent = function() {
     //Create HTML
     var solid_container = $(document.createElement('span'));
 
-    //Set font size
+    //Set CSS
     solid_container.css({
         width: '100%',
         height: '100%',
         position: 'absolute',
         top: '0',
         left: '0',
-        backgroundColor: '#333'
+        backgroundColor: '#333',
+        mixBlendMode: 'multiply',
+        opacity: '.8'
     });
 
     return solid_container;
